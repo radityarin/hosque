@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.papbl.hosque">
+
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,35 +23,45 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.PenjemputanBarangActivity"
-            android:parentActivityName=".activities.DonasiPakaianActivity"
+
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".activities.MapsActivity"
+            android:label="@string/title_activity_maps"/>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+        <activity
+            android:name=".activities.DetailBencanaVerifActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.DetailBencanaVerifActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.ProgresBencanaActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.KategoriActivity"
+            android:configChanges="orientation"
             android:parentActivityName=".activities.MainUserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.DetailDataDiriVerifActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.DetailDataDiriVerifActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.EditProfileActivity"
+            android:configChanges="orientation"
             android:parentActivityName=".activities.MainUserActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.PembayaranActivity"
-            android:parentActivityName=".activities.DonasiUangActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.SlideScreenActivity"
+            android:name=".activities.SlideScreenActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -53,45 +70,43 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.SearchActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
         <activity
-            android:name=".activities.DonasiUangActivity"
-            android:parentActivityName=".activities.KategoriDonasiActivity"
+            android:name=".activities.SearchActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".activities.DonasiPakaianActivity"
-            android:parentActivityName=".activities.KategoriDonasiActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.KategoriDonasiActivity"
+            android:configChanges="orientation"
             android:parentActivityName=".activities.DetailBencanaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.DetailBencanaActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.DetailBencanaActivity"
+        <activity
+            android:name=".activities.MainUserActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.MainUserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.BuktiDataDiriActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.BuktiDataDiriActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.MenuAdminActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.MenuAdminActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.MenuActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.MenuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.MainActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.MainActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
+
         <receiver android:name=".AlarmReceiver" />
     </application>
 

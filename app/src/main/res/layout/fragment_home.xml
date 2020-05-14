@@ -53,8 +53,32 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginHorizontal="32dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/btnorange"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pemeriksaan yang akan datang"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dokter Satu"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:orientation="vertical"
                 android:paddingHorizontal="16dp">
 
@@ -69,7 +93,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -80,8 +104,8 @@
 
                         <Button
                             android:id="@+id/btn_kebakaran"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
                             android:layout_gravity="center_horizontal"
                             android:background="@drawable/fire" />
 
@@ -102,8 +126,8 @@
 
                         <Button
                             android:id="@+id/btn_longsor"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
                             android:layout_gravity="center_horizontal"
                             android:background="@drawable/stone" />
 
@@ -124,8 +148,8 @@
 
                         <Button
                             android:id="@+id/btn_banjir"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
                             android:layout_gravity="center_horizontal"
                             android:background="@drawable/sea" />
 
@@ -146,8 +170,8 @@
 
                         <Button
                             android:id="@+id/btn_gempa"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
                             android:layout_gravity="center_horizontal"
                             android:background="@drawable/crack" />
 
@@ -161,6 +185,7 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -175,8 +200,8 @@
 
                         <Button
                             android:id="@+id/btn_kebakarans"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
                             android:layout_gravity="center_horizontal"
                             android:background="@drawable/fire" />
 
@@ -197,8 +222,8 @@
 
                         <Button
                             android:id="@+id/btn_longsors"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
                             android:layout_gravity="center_horizontal"
                             android:background="@drawable/stone" />
 
@@ -219,8 +244,8 @@
 
                         <Button
                             android:id="@+id/btn_banjirs"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
                             android:layout_gravity="center_horizontal"
                             android:background="@drawable/sea" />
 
@@ -242,8 +267,8 @@
 
                         <Button
                             android:id="@+id/btn_others"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
                             android:layout_gravity="center_horizontal"
                             android:background="@drawable/others" />
 
@@ -262,8 +287,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="32dp"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -274,46 +300,15 @@
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="16dp">
-
-                    <TextView
-                        android:id="@+id/tv_lokasi"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawableLeft="@drawable/ic_location_on_black_24dp"
-                        android:drawablePadding="4dp"
-                        android:drawableTint="@color/colorPrimaryDark"
-                        android:gravity="center_vertical"
-                        android:text="Mencari...." />
-
-                    <!--                    <Button-->
-                    <!--                        android:id="@+id/btn_lihatsemuabencanaterdekat"-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="20dp"-->
-                    <!--                        android:layout_weight="3"-->
-                    <!--                        android:background="@android:color/transparent"-->
-                    <!--                        android:text="Lihat Semua"-->
-                    <!--                        android:textAlignment="textEnd"-->
-                    <!--                        android:textAllCaps="false"-->
-                    <!--                        android:textColor="@android:color/holo_blue_bright"-->
-                    <!--                        android:textStyle="bold" />-->
-                </LinearLayout>
-
                 <com.facebook.shimmer.ShimmerFrameLayout
                     android:id="@+id/shimmer_view_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
                     android:orientation="vertical"
                     shimmer:duration="800">
 
-                    <!-- Adding 3 rows of placeholders -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

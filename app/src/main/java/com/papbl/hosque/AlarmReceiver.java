@@ -18,7 +18,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 import com.papbl.hosque.activities.MenuAdminActivity;
-import com.papbl.hosque.model.Bencana;
 import com.papbl.hosque.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -66,20 +65,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             });
         } if (type.equalsIgnoreCase(TYPE_NEWBENCANA)) {
             Log.d("cek", "masuk typebencana" + type);
-            checkNewBencana(new NotifikasiCallback() {
-                @Override
-                public void onSuccess(int newUser) {
-                    int newBencana = newUser;
-                    if (newBencana != 0) {
-                        showAlarmNotification(context, "Bencana Baru", "Ada " + newBencana + " bencana yang belum diverifikasi", idNotifBencana);
-                    }
-                }
 
-                @Override
-                public void onError(boolean failure) {
-
-                }
-            });
         }
     }
 
@@ -177,29 +163,6 @@ public class AlarmReceiver extends BroadcastReceiver {
                         newUser = 0;
                     }
                 }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void checkNewBencana(final NotifikasiCallback notifikasiCallback) {
-        Log.d("cek", "masuk checknewbencana");
-        DatabaseReference sewaRef = FirebaseDatabase.getInstance().getReference().child("Bencana");
-        sewaRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot dt : dataSnapshot.getChildren()) {
-                    Bencana mBencana = dt.getValue(Bencana.class);
-                    if (!mBencana.isStatus()) {
-                        newBencana++;
-                    }
-                }
-                notifikasiCallback.onSuccess(newBencana);
-                notifikasiCallback.onError(false);
             }
 
             @Override

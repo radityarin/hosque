@@ -10,7 +10,7 @@
         android:title="Akun Baru"
         app:showAsAction="never"/>
     <item
-        android:id="@+id/riwayatbutton"
+        android:id="@+id/antrianbutton"
         android:enabled="true"
         android:icon="@drawable/ic_bencana"
         android:iconTint="@android:color/darker_gray"

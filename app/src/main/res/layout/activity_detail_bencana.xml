@@ -60,10 +60,19 @@
             tools:targetApi="o" />
 
         <TextView
+            android:id="@+id/tv_status_bencana"
+            android:layout_width="match_parent"
+            android:paddingHorizontal="16dp"
+            android:layout_height="wrap_content"
+            android:text="Tipe"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"
+            tools:targetApi="o" />
+
+        <TextView
             android:id="@+id/tv_alamatbencana"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_location_on_black_24dp"
             android:drawablePadding="8dp"
             android:drawableTint="@color/colorPrimary"
             android:paddingHorizontal="16dp"
@@ -71,65 +80,6 @@
             android:layout_marginTop="8dp"
             android:textColor="@android:color/black"
             android:textSize="16sp"
-            tools:targetApi="o" />
-
-        <TextView
-            android:id="@+id/tv_status_bencana"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Terverifikasi"
-            android:paddingHorizontal="47dp"
-            android:layout_marginTop="8dp"
-            android:textColor="@android:color/holo_green_dark"
-            android:textSize="16sp"
-            tools:targetApi="o" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="8dp"
-            android:background="@android:color/darker_gray"
-            tools:targetApi="o" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="8dp"
-            android:gravity="center_vertical"
-            android:layout_marginHorizontal="16dp"
-            android:orientation="horizontal">
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="30dp"
-                android:id="@+id/civ_profilimage"
-                android:layout_height="30dp"
-                android:src="@drawable/person"
-                app:civ_circle_background_color="@android:color/darker_gray"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:textColor="@android:color/black"
-                android:id="@+id/tv_namaprofil"
-                android:layout_height="wrap_content"
-                android:text="Riefqy Ardhya Bisma"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="|"
-                android:layout_marginHorizontal="8dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="15 hari tersisa"/>
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginHorizontal="16dp"
-            android:background="@android:color/darker_gray"
             tools:targetApi="o" />
 
         <TextView
@@ -141,18 +91,12 @@
             android:text="Lorem ipsum dolor ait amet conector alt. Awos et ente porte forte naruto sasuke kakashi kiba neji hinata yondaime hokage tsunade jiraiya kushina kyuubi shukaku shodaime ootsutsuki kaguya elon musk tony stark filkom ub"
             android:textColor="@android:color/black" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginHorizontal="16dp"
-            android:background="@android:color/darker_gray"
-            tools:targetApi="o" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="16dp"
-            android:text="Donatur"
+            android:text="Poliklinik"
             android:textColor="@android:color/black"
             android:textSize="20sp"
             android:layout_marginTop="16dp"
@@ -178,7 +122,7 @@
             android:layout_alignParentBottom="true"
             android:layout_margin="16dp"
             android:background="@drawable/btnorange"
-            android:text="@string/donasi_sekarang"
+            android:text="List Dokter"
             android:textAllCaps="false"
             android:textColor="@android:color/white" />
     </LinearLayout>

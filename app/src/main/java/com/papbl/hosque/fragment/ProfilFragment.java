@@ -89,13 +89,13 @@ public class ProfilFragment extends Fragment implements View.OnClickListener {
         tv_editprofil.setOnClickListener(this);
         auth = FirebaseAuth.getInstance();
         getProfileData();
-        accountReference = FirebaseDatabase.getInstance().getReference().child("Users").child(auth.getUid());
+        accountReference = FirebaseDatabase.getInstance().getReference().child("users").child("patient").child(auth.getUid());
         return view;
     }
 
     private void getProfileData() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Users").child(Objects.requireNonNull(auth.getUid()));
+        DatabaseReference myRef = database.getReference("users").child("patient").child(Objects.requireNonNull(auth.getUid()));
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

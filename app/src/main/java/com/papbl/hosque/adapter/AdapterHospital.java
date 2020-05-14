@@ -19,25 +19,20 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.papbl.hosque.R;
 import com.papbl.hosque.activities.DetailBencanaActivity;
-import com.papbl.hosque.model.Bencana;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.papbl.hosque.model.Hospital;
 
 import java.util.ArrayList;
 
-public class AdapterBencana extends RecyclerView.Adapter<AdapterBencana.ViewHolder> {
+public class AdapterHospital extends RecyclerView.Adapter<AdapterHospital.ViewHolder> {
 
     private final Context context;
-    private final ArrayList<Bencana> list_bencana = new ArrayList<>();
+    private final ArrayList<Hospital> list_bencana = new ArrayList<>();
 
-    public AdapterBencana(Context context) {
+    public AdapterHospital(Context context) {
         this.context = context;
     }
 
-    public void setData(ArrayList<Bencana> items) {
+    public void setData(ArrayList<Hospital> items) {
         list_bencana.clear();
         list_bencana.addAll(items);
         notifyDataSetChanged();
@@ -46,7 +41,7 @@ public class AdapterBencana extends RecyclerView.Adapter<AdapterBencana.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.item_bencana_horizontal, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.item_bencana, parent, false);
         final ViewHolder holder = new ViewHolder(v);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,37 +67,25 @@ public class AdapterBencana extends RecyclerView.Adapter<AdapterBencana.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final ImageView iv_fotobencana;
         private final TextView tv_judulbencana;
-        private final TextView tv_deskripsi;
-        private final TextView tv_namaUser;
+        private final TextView tv_kategori;
+        private final TextView tv_alamat;
 
         ViewHolder(View itemView) {
             super(itemView);
             iv_fotobencana = itemView.findViewById(R.id.iv_fotobencana);
             tv_judulbencana = itemView.findViewById(R.id.tv_judulbencana);
-            tv_deskripsi = itemView.findViewById(R.id.tv_deskripsibencana);
-            tv_namaUser = itemView.findViewById(R.id.tv_name_user);
+            tv_kategori = itemView.findViewById(R.id.tv_kategori);
+            tv_alamat = itemView.findViewById(R.id.tv_alamat);
         }
 
-        void bind(Bencana bencana){
-            tv_judulbencana.setText(bencana.getJudul());
-            tv_deskripsi.setText(bencana.getDeskripsi());
-            DatabaseReference getNameUser = FirebaseDatabase.getInstance().getReference().child("Users").child(bencana.getIdUser());
-            getNameUser.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String namaUser = dataSnapshot.child("nama").getValue().toString();
-                    tv_namaUser.setText(namaUser);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
+        void bind(Hospital bencana){
+            tv_judulbencana.setText(bencana.getNama());
+            tv_kategori.setText(bencana.getTipe());
+            tv_alamat.setText(bencana.getAlamat());
             RequestOptions requestOptions = new RequestOptions();
             requestOptions = requestOptions.transforms(new CenterCrop(), new RoundedCorners(20));
             Glide.with(itemView.getContext())
-                    .load(bencana.getFotoBencana())
+                    .load(bencana.getUrl_photo())
                     .apply(requestOptions)
                     .into(iv_fotobencana);
         }

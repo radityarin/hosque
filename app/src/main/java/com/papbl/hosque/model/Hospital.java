@@ -3,49 +3,32 @@ package com.papbl.hosque.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
-
 public class Hospital implements Parcelable {
 
-    private String alamat, deskripsi, nama, koordinat, tipe, url_photo;
-    private ArrayList<String> doctor, main_queue;
+    private String uid, alamat, deskripsi, nama, koordinat, tipe, url_photo;
+//    private ArrayList<Doctor> dokter;
 
     public Hospital() {
     }
 
-    public Hospital(String alamat, String deskripsi, String nama, String koordinat, String tipe, String url_photo, ArrayList<String> doctor, ArrayList<String> main_queue) {
+    public Hospital(String uid, String alamat, String deskripsi, String nama, String koordinat, String tipe, String url_photo) {
+        this.uid = uid;
         this.alamat = alamat;
         this.deskripsi = deskripsi;
         this.nama = nama;
         this.koordinat = koordinat;
         this.tipe = tipe;
         this.url_photo = url_photo;
-        this.doctor = doctor;
-        this.main_queue = main_queue;
+//        this.dokter = dokter;
     }
 
-    protected Hospital(Parcel in) {
-        alamat = in.readString();
-        deskripsi = in.readString();
-        nama = in.readString();
-        koordinat = in.readString();
-        tipe = in.readString();
-        url_photo = in.readString();
-        doctor = in.createStringArrayList();
-        main_queue = in.createStringArrayList();
+    public String getUid() {
+        return uid;
     }
 
-    public static final Creator<Hospital> CREATOR = new Creator<Hospital>() {
-        @Override
-        public Hospital createFromParcel(Parcel in) {
-            return new Hospital(in);
-        }
-
-        @Override
-        public Hospital[] newArray(int size) {
-            return new Hospital[size];
-        }
-    };
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     public String getAlamat() {
         return alamat;
@@ -94,22 +77,15 @@ public class Hospital implements Parcelable {
     public void setUrl_photo(String url_photo) {
         this.url_photo = url_photo;
     }
+//
+//    public ArrayList<Doctor> getDokter() {
+//        return dokter;
+//    }
+//
+//    public void setDokter(ArrayList<Doctor> dokter) {
+//        this.dokter = dokter;
+//    }
 
-    public ArrayList<String> getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(ArrayList<String> doctor) {
-        this.doctor = doctor;
-    }
-
-    public ArrayList<String> getMain_queue() {
-        return main_queue;
-    }
-
-    public void setMain_queue(ArrayList<String> main_queue) {
-        this.main_queue = main_queue;
-    }
 
     @Override
     public int describeContents() {
@@ -118,13 +94,36 @@ public class Hospital implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(alamat);
-        dest.writeString(deskripsi);
-        dest.writeString(nama);
-        dest.writeString(koordinat);
-        dest.writeString(tipe);
-        dest.writeString(url_photo);
-        dest.writeStringList(doctor);
-        dest.writeStringList(main_queue);
+        dest.writeString(this.uid);
+        dest.writeString(this.alamat);
+        dest.writeString(this.deskripsi);
+        dest.writeString(this.nama);
+        dest.writeString(this.koordinat);
+        dest.writeString(this.tipe);
+        dest.writeString(this.url_photo);
+//        dest.writeTypedList(this.dokter);
     }
+
+    protected Hospital(Parcel in) {
+        this.uid = in.readString();
+        this.alamat = in.readString();
+        this.deskripsi = in.readString();
+        this.nama = in.readString();
+        this.koordinat = in.readString();
+        this.tipe = in.readString();
+        this.url_photo = in.readString();
+//        this.dokter = in.createTypedArrayList(Doctor.CREATOR);
+    }
+
+    public static final Creator<Hospital> CREATOR = new Creator<Hospital>() {
+        @Override
+        public Hospital createFromParcel(Parcel source) {
+            return new Hospital(source);
+        }
+
+        @Override
+        public Hospital[] newArray(int size) {
+            return new Hospital[size];
+        }
+    };
 }

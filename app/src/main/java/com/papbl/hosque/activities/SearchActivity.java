@@ -12,13 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.papbl.hosque.R;
-import com.papbl.hosque.adapter.AdapterBencana;
-import com.papbl.hosque.model.Bencana;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.papbl.hosque.adapter.AdapterHospital;
+import com.papbl.hosque.model.Hospital;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
 
     private SearchView sv_searchbencana;
     private FirebaseDatabase database;
-    private ArrayList<Bencana> listbencana;
+    private ArrayList<Hospital> listbencana;
     private RecyclerView rv_search;
     private Button btn_back;
 
@@ -63,7 +63,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
     }
 
     private void search(String s) {
-        Query query = database.getReference("Bencana").orderByChild("judul")
+        Query query = database.getReference("hospital").orderByChild("nama")
                 .startAt(s)
                 .endAt(s + "\uf0ff");
 
@@ -73,7 +73,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
                 if (dataSnapshot.hasChildren()){
                     listbencana.clear();
                     for (DataSnapshot dss : dataSnapshot.getChildren()){
-                        final Bencana bencana = dss.getValue(Bencana.class);
+                        final Hospital bencana = dss.getValue(Hospital.class);
                         listbencana.add(bencana);
                     }
 
@@ -81,7 +81,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
                 else if (!dataSnapshot.hasChildren()){
                     listbencana.clear();
                 }
-                AdapterBencana adapterBencana = new AdapterBencana(getApplicationContext());
+                AdapterHospital adapterBencana = new AdapterHospital(getApplicationContext());
                 adapterBencana.setData(listbencana);
                 adapterBencana.notifyDataSetChanged();
                 rv_search.setAdapter(adapterBencana);

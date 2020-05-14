@@ -30,9 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.papbl.hosque.R;
 import com.papbl.hosque.activities.KategoriActivity;
 import com.papbl.hosque.activities.SearchActivity;
-import com.papbl.hosque.adapter.AdapterBencana;
-import com.papbl.hosque.adapter.AdapterBencanaTerdekat;
-import com.papbl.hosque.model.Bencana;
+import com.papbl.hosque.adapter.AdapterHospital;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -110,7 +108,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         rv_bencanaterdekat = view.findViewById(R.id.rv_bencanaterdekat);
 //        rv_caripahalayuk = view.findViewById(R.id.rv_caripahalayuk);
 
-        tv_lokasi = view.findViewById(R.id.tv_lokasi);
+//        tv_lokasi = view.findViewById(R.id.tv_lokasi);
         tv_searchbencana = view.findViewById(R.id.tv_searchbencana);
         tv_searchbencana.setOnClickListener(this);
 
@@ -146,12 +144,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 for (DataSnapshot dt : dataSnapshot.getChildren()) {
                     Hospital bencana = dt.getValue(Hospital.class);
                     bencanaterdekat.add(bencana);
-
                 }
                 mShimmerViewContainer.stopShimmerAnimation();
                 mShimmerViewContainer.setVisibility(View.GONE);
                 rv_bencanaterdekat.setVisibility(View.VISIBLE);
-                AdapterBencanaTerdekat adapterBencanaTerdekat = new AdapterBencanaTerdekat(getContext());
+                AdapterHospital adapterBencanaTerdekat = new AdapterHospital(getContext());
                 adapterBencanaTerdekat.setData(bencanaterdekat);
                 rv_bencanaterdekat.setAdapter(adapterBencanaTerdekat);
                 rv_bencanaterdekat.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));

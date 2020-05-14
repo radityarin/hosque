@@ -9,8 +9,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.papbl.hosque.R;
 import com.papbl.hosque.fragment.HomeFragment;
+import com.papbl.hosque.fragment.NavigasiFragment;
 import com.papbl.hosque.fragment.ProfilFragment;
-import com.papbl.hosque.fragment.RiwayatFragment;
+import com.papbl.hosque.fragment.AntrianFragment;
 import com.papbl.hosque.fragment.TambahFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -27,8 +28,8 @@ public class MainUserActivity extends AppCompatActivity {
                     fragmentTransaction.commit();
                     setTitle("Home");
                     return true;
-                case R.id.riwayatbutton:
-                    RiwayatFragment riwayatFragment = new RiwayatFragment();
+                case R.id.antrianbutton:
+                    AntrianFragment riwayatFragment = new AntrianFragment();
                     fragmentTransaction.replace(R.id.main_frame, riwayatFragment, "Riwayat Fragment");
                     fragmentTransaction.commit();
                     setTitle("Riwayat");
@@ -38,6 +39,12 @@ public class MainUserActivity extends AppCompatActivity {
                     fragmentTransaction.replace(R.id.main_frame, tambahFragment, "Tambah Fragment");
                     fragmentTransaction.commit();
                     setTitle("Tambah");
+                    return true;
+                case R.id.navigasibutton:
+                    NavigasiFragment navigasiFragment = new NavigasiFragment();
+                    fragmentTransaction.replace(R.id.main_frame, navigasiFragment, "Navigasi Fragment");
+                    fragmentTransaction.commit();
+                    setTitle("Profil");
                     return true;
                 case R.id.profilebutton:
                     ProfilFragment profilFragment = new ProfilFragment();
