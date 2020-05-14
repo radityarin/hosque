@@ -6,19 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.papbl.hosque.R;
-import com.papbl.hosque.data.dataJawaTimur;
-import com.papbl.hosque.model.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -37,94 +30,56 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.papbl.hosque.R;
+import com.papbl.hosque.data.dataJawaTimur;
+import com.papbl.hosque.databinding.ActivityMainBinding;
+import com.papbl.hosque.model.User;
 
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button goLogin, goRegis;
-    private LinearLayout llLogin, llregis, llregiscompletedata,llLupaPassword;
+    public final int RC_SIGN_IN = 9001;
+    public final String TAG = "GoogleActivity";
+
     private BottomSheetBehavior bottomSheetBehaviorLogin, bottomSheetBehaviorRegis, bottomSheetBehaviorRegisCompleteData, bottomSheetBehaviorLupaPassword;
-    private EditText etEmailLogin, etPasswordLogin;
-    private Button btnLogin, btnLoginGoogle;
-    private TextView tvGoregis, tvGologin, tvLupaPassword;
     private FirebaseAuth auth;
-    private EditText etNamaRegis, etNoRegis, etKotaRegis, etEmailRegis, etPasswordRegis, etRePasswordRegis, etEmailLupaPassword;
-    private Button btnRegisternext, btnRegister, btnLupaPassword;
     private DatabaseReference databaseReference, createUserRef;
     private String nama, no, kota, email, password, rePassword;
     private ProgressDialog PD;
     private GoogleSignInClient mGoogleSignInClient;
-
-    public final int RC_SIGN_IN = 9001;
-    public final String TAG = "GoogleActivity";
-
     private GoogleSignInAccount account;
     private boolean checkLoginGoogleExixst = false;
+
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        goLogin = findViewById(R.id.btn_goLogin);
-        goRegis = findViewById(R.id.btn_goRegis);
-        llLogin = findViewById(R.id.bottom_sheet_login);
-        llregis = findViewById(R.id.bottom_sheet_regis);
-        llLupaPassword = findViewById(R.id.bottom_sheet_lupa_password);
-        llregiscompletedata = findViewById(R.id.bottom_sheet_regisdata);
-        bottomSheetBehaviorLogin = BottomSheetBehavior.from(llLogin);
-        bottomSheetBehaviorRegis = BottomSheetBehavior.from(llregis);
-        bottomSheetBehaviorLupaPassword = BottomSheetBehavior.from(llLupaPassword);
-        bottomSheetBehaviorRegisCompleteData = BottomSheetBehavior.from(llregiscompletedata);
-        goLogin.setOnClickListener(this);
-        goRegis.setOnClickListener(this);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
-        etEmailLogin = findViewById(R.id.et_emailLogin);
-        etPasswordLogin = findViewById(R.id.et_passwordLogin);
-        etEmailLupaPassword = findViewById(R.id.et_emailLupaPassword);
+        bottomSheetBehaviorLogin = BottomSheetBehavior.from(binding.bottomSheetLogin.bottomSheetLogin);
+        bottomSheetBehaviorRegis = BottomSheetBehavior.from(binding.bottomSheetRegis.bottomSheetRegis);
+        bottomSheetBehaviorLupaPassword = BottomSheetBehavior.from(binding.bottomSheetLupaPassword.bottomSheetLupaPassword);
+        bottomSheetBehaviorRegisCompleteData = BottomSheetBehavior.from(binding.bottomSheetRegisdata.bottomSheetRegisdata);
+        binding.btnGoLogin.setOnClickListener(this);
+        binding.btnGoRegis.setOnClickListener(this);
 
-        btnLogin = findViewById(R.id.btn_Login);
-        btnLogin.setOnClickListener(this);
+        binding.bottomSheetLogin.btnLogin.setOnClickListener(this);
+        binding.bottomSheetLupaPassword.btnLupaPassword.setOnClickListener(this);
+        binding.bottomSheetLogin.btnGoogle.setOnClickListener(this);
+        binding.bottomSheetLogin.tvGoRegis.setOnClickListener(this);
+        binding.bottomSheetRegis.tvGoLogin.setOnClickListener(this);
+        binding.bottomSheetLogin.tvLupaPassword.setOnClickListener(this);
 
-        btnLupaPassword = findViewById(R.id.btn_Lupa_Password);
-        btnLupaPassword.setOnClickListener(this);
-
-        btnLoginGoogle = findViewById(R.id.btn_Google);
-        btnLoginGoogle.setOnClickListener(this);
-
-        tvGoregis = findViewById(R.id.tv_goRegis);
-        tvGoregis.setOnClickListener(this);
-
-        tvGologin = findViewById(R.id.tv_goLogin);
-        tvGologin.setOnClickListener(this);
-
-        tvLupaPassword = findViewById(R.id.tvLupaPassword);
-        tvLupaPassword.setOnClickListener(this);
+        binding.bottomSheetRegis.btnRegisternext.setOnClickListener(this);
+        binding.bottomSheetRegisdata.btnRegister.setOnClickListener(this);
 
         auth = FirebaseAuth.getInstance();
-
-        etNamaRegis = findViewById(R.id.et_namaRegister);
-        etNoRegis = findViewById(R.id.et_noTelpRegister);
-        etKotaRegis = findViewById(R.id.et_kotaRegister);
-        etEmailRegis = findViewById(R.id.et_emailRegister);
-        etPasswordRegis = findViewById(R.id.et_passwordRegister);
-        etRePasswordRegis = findViewById(R.id.et_ulangiPasswordRegister);
-
-        btnRegisternext = findViewById(R.id.btn_registernext);
-        btnRegisternext.setOnClickListener(this);
-
-        btnRegister = findViewById(R.id.btn_register);
-        btnRegister.setOnClickListener(this);
-
         databaseReference = FirebaseDatabase.getInstance().getReference();
-
-//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestIdToken(getString(R.string.default_web_client_id))
-//                .requestEmail()
-//                .build();
-//
-//        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
     @Override
@@ -140,9 +95,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 bottomSheetBehaviorRegis.setState(BottomSheetBehavior.STATE_EXPANDED);
                 break;
             case R.id.btn_Login:
-                email = etEmailLogin.getText().toString();
-                password = etPasswordLogin.getText().toString();
-                if (!(email.equals("") && password.equals(""))){
+                email = binding.bottomSheetLogin.etEmailLogin.getText().toString();
+                password = binding.bottomSheetLogin.etPasswordLogin.getText().toString();
+                if (!(email.equals("") && password.equals(""))) {
                     Log.d("Cek", email + password);
                     loginUser(email, password);
                 } else {
@@ -151,10 +106,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btn_Lupa_Password:
-                email = etEmailLupaPassword.getText().toString();
-                if(!email.equals("")){
+                email = binding.bottomSheetLupaPassword.etEmailLupaPassword.getText().toString();
+                if (!email.equals("")) {
                     lupaPassword(email);
-                }else{
+                } else {
                     Toast.makeText(this, "Email tidak boleh dikosongi", Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -172,9 +127,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_registernext:
 
-                email = etEmailRegis.getText().toString();
-                password = etPasswordRegis.getText().toString();
-                rePassword = etRePasswordRegis.getText().toString();
+                email = binding.bottomSheetRegis.etEmailRegister.getText().toString();
+                password = binding.bottomSheetRegis.etPasswordRegister.getText().toString();
+                rePassword = binding.bottomSheetRegis.etUlangiPasswordRegister.getText().toString();
                 if (!(email.equals("") && password.equals("") && rePassword.equals(""))) {
                     if (password.equals(rePassword)) {
                         bottomSheetBehaviorRegis.setState(BottomSheetBehavior.STATE_COLLAPSED);
@@ -192,15 +147,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 PD.setCancelable(true);
                 PD.setCanceledOnTouchOutside(false);
                 PD.show();
-                email = etEmailRegis.getText().toString();
-                password = etPasswordRegis.getText().toString();
-                rePassword = etRePasswordRegis.getText().toString();
+                email = binding.bottomSheetRegis.etEmailRegister.getText().toString();
+                password = binding.bottomSheetRegis.etPasswordRegister.getText().toString();
+                rePassword = binding.bottomSheetRegis.etUlangiPasswordRegister.getText().toString();
                 if (!(email.equals("") && password.equals("") && rePassword.equals(""))) {
-                    nama = etNamaRegis.getText().toString();
-                    no = etNoRegis.getText().toString();
-                    kota = etKotaRegis.getText().toString();
+                    nama = binding.bottomSheetRegisdata.etNamaRegister.getText().toString();
+                    no = binding.bottomSheetRegisdata.etNoTelpRegister.getText().toString();
+                    kota = binding.bottomSheetRegisdata.etKotaRegister.getText().toString();
 
-                    if (!(nama.equals("") && no.equals("") && kota.equals(""))){
+                    if (!(nama.equals("") && no.equals("") && kota.equals(""))) {
                         if (checkKota(nama)) {
                             adminExist(nama);
                         } else {
@@ -212,16 +167,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
                 } else {
-                    nama = etNamaRegis.getText().toString();
-                    no = etNoRegis.getText().toString();
-                    kota = etKotaRegis.getText().toString();
-                    if (!(nama.equals("") && no.equals("") && kota.equals(""))){
+                    nama = binding.bottomSheetRegisdata.etNamaRegister.getText().toString();
+                    no = binding.bottomSheetRegisdata.etNoTelpRegister.getText().toString();
+                    kota = binding.bottomSheetRegisdata.etKotaRegister.getText().toString();
+                    if (!(nama.equals("") && no.equals("") && kota.equals(""))) {
                         firebaseAuthWithGoogle(account);
-                    }else{
+                    } else {
                         Toast.makeText(this, "Silahkan lengkapi data terlebih dahulu", Toast.LENGTH_SHORT).show();
                     }
-
-
 
 
                 }
@@ -244,6 +197,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     String uid = currentUser.getUid();
 
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child("patient").child(uid);
+
 
                     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -293,10 +247,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 account = task.getResult(ApiException.class);
 
                 Query databaseReference =  FirebaseDatabase.getInstance().getReference().child("users").child("patient").orderByChild("email").equalTo(account.getEmail().toString());
+
                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (!dataSnapshot.exists()){
+                        if (!dataSnapshot.exists()) {
                             bottomSheetBehaviorLogin.setState(BottomSheetBehavior.STATE_COLLAPSED);
                             bottomSheetBehaviorRegisCompleteData.setState(BottomSheetBehavior.STATE_EXPANDED);
 //                            firebaseAuthWithGoogle(account);
@@ -336,14 +291,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            if (checkLoginGoogleExixst){
+                            if (checkLoginGoogleExixst) {
                                 Intent intent = new Intent(MainActivity.this, MainUserActivity.class);
                                 startActivity(intent);
                                 finish();
                             } else {
                                 FirebaseUser user = auth.getCurrentUser();
 
-                                email = user.getEmail().toString();
+                                email = user.getEmail();
 
                                 writeUser(nama, no, kota, email, "", false);
                             }
@@ -393,7 +348,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (fotoIdentidas.equals("")) {
                         showAlert();
                         PD.dismiss();
-                    } else if (fotoIdentidas.equals("isAdmin")){
+                    } else if (fotoIdentidas.equals("isAdmin")) {
                         PD.dismiss();
                         Intent intent = new Intent(MainActivity.this, MenuAdminActivity.class);
                         startActivity(intent);
@@ -488,18 +443,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    private void lupaPassword(final String email){
+    private void lupaPassword(final String email) {
         PD = new ProgressDialog(MainActivity.this);
         PD.setMessage("Loading...");
         PD.setCancelable(true);
         PD.setCanceledOnTouchOutside(false);
         PD.show();
-        auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>(){
+        auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     PD.dismiss();
-                    etEmailLupaPassword.setText("");
+                    binding.bottomSheetLupaPassword.etEmailLupaPassword.setText("");
                     bottomSheetBehaviorLupaPassword.setState(BottomSheetBehavior.STATE_COLLAPSED);
                     bottomSheetBehaviorLogin.setState(BottomSheetBehavior.STATE_EXPANDED);
                     Toast.makeText(MainActivity.this, "Email password reset telah terkirim, silahkan cek email anda", Toast.LENGTH_SHORT).show();
@@ -517,14 +472,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             bottomSheetBehaviorLogin.setState(BottomSheetBehavior.STATE_COLLAPSED);
         } else if (bottomSheetBehaviorRegis.getState() == BottomSheetBehavior.STATE_EXPANDED) {
             bottomSheetBehaviorRegis.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        }else if (bottomSheetBehaviorLupaPassword.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+        } else if (bottomSheetBehaviorLupaPassword.getState() == BottomSheetBehavior.STATE_EXPANDED) {
             bottomSheetBehaviorLupaPassword.setState(BottomSheetBehavior.STATE_COLLAPSED);
         } else {
             super.onBackPressed();
         }
     }
 
-    private void writeUser(final String namaUser, String noUser, String kotaUser, String emailUser, String isAdmin, boolean statusAdmin){
+    private void writeUser(final String namaUser, String noUser, String kotaUser, String emailUser, String isAdmin, boolean statusAdmin) {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String userId = currentUser.getUid();
         createUserRef = FirebaseDatabase.getInstance().getReference().child("users").child("patient").child(userId);

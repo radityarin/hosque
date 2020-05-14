@@ -4,10 +4,10 @@
     android:id="@+id/bottom_sheet_login"
     android:layout_width="match_parent"
     android:layout_height="530dp"
-    android:paddingHorizontal="20dp"
-    android:paddingVertical="24dp"
     android:background="@drawable/btnwhite"
     android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="24dp"
     app:behavior_hideable="false"
     app:behavior_peekHeight="0dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
@@ -34,11 +34,11 @@
         android:layout_height="56dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/etbg"
-        android:inputType="textEmailAddress"
         android:drawableLeft="@drawable/ic_person_black_24dp"
         android:drawablePadding="8dp"
         android:drawableTint="@android:color/darker_gray"
         android:hint="Email"
+        android:inputType="textEmailAddress"
         android:paddingHorizontal="16dp" />
 
     <EditText
@@ -49,9 +49,9 @@
         android:background="@drawable/etbg"
         android:drawableLeft="@drawable/ic_lock_black_24dp"
         android:drawablePadding="8dp"
-        android:inputType="textPassword"
         android:drawableTint="@android:color/darker_gray"
         android:hint="Password"
+        android:inputType="textPassword"
         android:paddingHorizontal="16dp" />
 
     <TextView
