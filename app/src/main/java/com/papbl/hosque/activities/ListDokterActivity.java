@@ -3,7 +3,6 @@ package com.papbl.hosque.activities;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,23 +18,23 @@ import com.google.firebase.database.ValueEventListener;
 import com.papbl.hosque.R;
 import com.papbl.hosque.adapter.AdapterDokter;
 import com.papbl.hosque.model.Doctor;
+import com.papbl.hosque.model.Hospital;
 
 import java.util.ArrayList;
 
-public class KategoriDonasiActivity extends AppCompatActivity implements View.OnClickListener {
+public class ListDokterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Toolbar toolbar;
-    private LinearLayout ll_donasipakaian, ll_donasiuang;
-    private String bencana;
+    private Hospital bencana;
     private RecyclerView rv_dokter;
     public static final String EXTRA_BENCANA = "bencana";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kategori_donasi);
+        setContentView(R.layout.activity_list_dokter);
 
-        bencana = getIntent().getStringExtra(EXTRA_BENCANA);
+        bencana = getIntent().getParcelableExtra(EXTRA_BENCANA);
 
         rv_dokter = findViewById(R.id.rv_dokter);
         toolbar = findViewById(R.id.toolbar_donasi);
@@ -44,17 +43,13 @@ public class KategoriDonasiActivity extends AppCompatActivity implements View.On
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-//        ll_donasipakaian = findViewById(R.id.ll_donasipakaian);
-//        ll_donasiuang = findViewById(R.id.ll_donasiuang);
-//        ll_donasipakaian.setOnClickListener(this);
-//        ll_donasiuang.setOnClickListener(this);
         getBencanaTerdekat(bencana);
     }
 
-    private void getBencanaTerdekat(String bencana) {
+    private void getBencanaTerdekat(final Hospital bencana) {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         Log.d("cek", "getBencanaTerdekat: "+bencana);
-        DatabaseReference databaseReference = firebaseDatabase.getReference("hospital").child(bencana).child("dokter");
+        DatabaseReference databaseReference = firebaseDatabase.getReference("hospital").child(bencana.getUid()).child("dokter");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -64,7 +59,7 @@ public class KategoriDonasiActivity extends AppCompatActivity implements View.On
                     bencanaterdekat.add(bencana);
                 }
                 rv_dokter.setVisibility(View.VISIBLE);
-                AdapterDokter adapterBencanaTerdekat = new AdapterDokter(getApplicationContext());
+                AdapterDokter adapterBencanaTerdekat = new AdapterDokter(getApplicationContext(),bencana);
                 adapterBencanaTerdekat.setData(bencanaterdekat);
                 rv_dokter.setAdapter(adapterBencanaTerdekat);
                 rv_dokter.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));

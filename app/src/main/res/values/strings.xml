@@ -31,15 +31,14 @@
     <string name="tv_fotoprofil">Tambah foto profil</string>
     <string name="btn_selesai">Selesai</string>
 
-    <string-array name="kategori_bencana">
-        <item>Pilih Kategori</item>
-        <item>Kebakaran</item>
-        <item>Longsor</item>
-        <item>Banjir</item>
-        <item>Gempa Bumi</item>
-        <item>Tsunami</item>
-        <item>Gunung Meletus</item>
-        <item>Puting Beliung</item>
+    <string-array name="list_jadwal">
+        <item>Pilih jadwal</item>
+        <item>07.00 - 09.00</item>
+        <item>09.00 - 11.00</item>
+        <item>11.00 - 13.00</item>
+        <item>13.00 - 15.00</item>
+        <item>15.00 - 17.00</item>
+        <item>17.00 - 19.00</item>
     </string-array>
 
     <string-array name="kategori_barang">

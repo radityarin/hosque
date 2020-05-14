@@ -5,16 +5,18 @@ import android.os.Parcelable;
 
 public class Antrian implements Parcelable {
 
-    private String nama_rumahsakit, jadwal, nomor, nama_dokter;
+    private String nama_rumahsakit, jadwal, nomor, nama_dokter , uidpasieng;
 
     public Antrian() {
     }
 
-    public Antrian(String nama_rumahsakit, String jadwal, String nomor, String nama_dokter) {
+
+    public Antrian(String nama_rumahsakit, String jadwal, String nomor, String nama_dokter, String uidpasieng) {
         this.nama_rumahsakit = nama_rumahsakit;
         this.jadwal = jadwal;
         this.nomor = nomor;
         this.nama_dokter = nama_dokter;
+        this.uidpasieng = uidpasieng;
     }
 
     public String getNama_rumahsakit() {
@@ -49,6 +51,14 @@ public class Antrian implements Parcelable {
         this.nama_dokter = nama_dokter;
     }
 
+    public String getUidpasieng() {
+        return uidpasieng;
+    }
+
+    public void setUidpasieng(String uidpasieng) {
+        this.uidpasieng = uidpasieng;
+    }
+
 
     @Override
     public int describeContents() {
@@ -61,6 +71,7 @@ public class Antrian implements Parcelable {
         dest.writeString(this.jadwal);
         dest.writeString(this.nomor);
         dest.writeString(this.nama_dokter);
+        dest.writeString(this.uidpasieng);
     }
 
     protected Antrian(Parcel in) {
@@ -68,9 +79,10 @@ public class Antrian implements Parcelable {
         this.jadwal = in.readString();
         this.nomor = in.readString();
         this.nama_dokter = in.readString();
+        this.uidpasieng = in.readString();
     }
 
-    public static final Parcelable.Creator<Antrian> CREATOR = new Parcelable.Creator<Antrian>() {
+    public static final Creator<Antrian> CREATOR = new Creator<Antrian>() {
         @Override
         public Antrian createFromParcel(Parcel source) {
             return new Antrian(source);

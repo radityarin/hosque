@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.papbl.hosque.R;
 import com.papbl.hosque.activities.DetailBencanaActivity;
+import com.papbl.hosque.activities.PilihJadwalActivity;
 import com.papbl.hosque.model.Doctor;
+import com.papbl.hosque.model.Hospital;
 
 import java.util.ArrayList;
 
@@ -22,9 +24,11 @@ public class AdapterDokter extends RecyclerView.Adapter<AdapterDokter.ViewHolder
 
     private final Context context;
     private final ArrayList<Doctor> list_bencana = new ArrayList<>();
+    private final Hospital hospital;
 
-    public AdapterDokter(Context context) {
+    public AdapterDokter(Context context, Hospital hospital) {
         this.context = context;
+        this.hospital = hospital;
     }
 
     public void setData(ArrayList<Doctor> items) {
@@ -41,8 +45,9 @@ public class AdapterDokter extends RecyclerView.Adapter<AdapterDokter.ViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(parent.getContext(), DetailBencanaActivity.class);
+                Intent intent = new Intent(parent.getContext(), PilihJadwalActivity.class);
                 intent.putExtra("bencana", (Parcelable)list_bencana.get(holder.getAdapterPosition()));
+                intent.putExtra("hospital", hospital);
                 parent.getContext().startActivity(intent);
             }
         });

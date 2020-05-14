@@ -60,8 +60,8 @@ public class DetailBencanaActivity extends AppCompatActivity implements View.OnC
         switch(v.getId()){
             case R.id.btn_donasiSekarang:
                 Log.d("cek", "onClick: "+bencana.getUid());
-                Intent intent = new Intent(DetailBencanaActivity.this, KategoriDonasiActivity.class);
-                intent.putExtra("bencana",bencana.getUid());
+                Intent intent = new Intent(DetailBencanaActivity.this, ListDokterActivity.class);
+                intent.putExtra("bencana",bencana);
                 startActivity(intent);
                 break;
             case R.id.btn_back:

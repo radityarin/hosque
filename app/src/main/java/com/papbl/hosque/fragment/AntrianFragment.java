@@ -44,8 +44,8 @@ public class AntrianFragment extends Fragment {
         rv_antrian = view.findViewById(R.id.rv_antrian);
         auth = FirebaseAuth.getInstance();
 
-        getBencanaTerdekat();
-
+//        getBencanaTerdekat();
+        getAntrian();
         return view;
     }
 
@@ -64,6 +64,34 @@ public class AntrianFragment extends Fragment {
                 adapterBencanaTerdekat.setData(bencanaterdekat);
                 rv_antrian.setAdapter(adapterBencanaTerdekat);
                 rv_antrian.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void getAntrian(){
+        final FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference("queue");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<Antrian> listbencana = new ArrayList<>();
+                for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                    Antrian bencana = dt.getValue(Antrian.class);
+                    if (bencana.getUidpasieng().equals(auth.getUid())) {
+                        listbencana.add(bencana);
+                    }
+
+                }
+                AdapterAntrian adapterRiwayat = new AdapterAntrian(getContext());
+                adapterRiwayat.setData(listbencana);
+                rv_antrian.setAdapter(adapterRiwayat);
+                rv_antrian.setLayoutManager(new LinearLayoutManager(getContext()));
             }
 
             @Override
