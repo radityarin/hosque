@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "368381002172",
+    "firebase_url": "https://hosque-e28aa.firebaseio.com",
+    "project_id": "hosque-e28aa",
+    "storage_bucket": "hosque-e28aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:368381002172:android:d6491501a4d1521e3d2bb9",
+        "android_client_info": {
+          "package_name": "com.papbl.hosque"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "368381002172-hlj8fc6hipqedb45tda835euhiabp4oe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8z4vRw9Fgy1Pf_t7HHj-joLIKTMTyXPY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "368381002172-hlj8fc6hipqedb45tda835euhiabp4oe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

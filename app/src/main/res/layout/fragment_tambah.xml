@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.TambahFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="32dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tambah Bencana"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="32dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Masukan data bencana sebenar-benarnya"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="Kategori bencana apa yang paling tepat untuk\npenggalangan bantuan anda?"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="16dp"/>
+
+            <Spinner
+                android:id="@+id/spn_kategoriBencana"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/etbg"
+                android:entries="@array/kategori_bencana"
+                android:paddingHorizontal="8dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Judul yang sesuai dengan penggalan bantuan anda?"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/et_judulBencana"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/etbg"
+                android:drawablePadding="8dp"
+                android:drawableTint="@android:color/darker_gray"
+                android:hint="Contoh: Bantu korban banjir di Bali"
+                android:paddingHorizontal="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="Alamat lengkap bencana terjadi"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/et_alamatBencana"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/etbg"
+                android:hint="Contoh: Jl. Kahuripan Menganga no. 4"
+                android:paddingHorizontal="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Deskripsi bencana"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/et_deskripsiBencana"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/etbg"
+                android:drawableTint="@android:color/darker_gray"
+                android:gravity="start"
+                android:hint="Tulis deskripsi bencana..."
+                android:paddingHorizontal="16dp"
+                android:paddingTop="8dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="Upload foto utama untuk penggalangan dana anda"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Format foto JPG/JPEG/PNG"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="8dp"/>
+
+            <ImageView
+                android:id="@+id/iv_fotoBencana"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_image" />
+
+            <Button
+                android:id="@+id/btn_tambahBencana"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/btnorange"
+                android:text="Selesai"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="24dp" />
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>
