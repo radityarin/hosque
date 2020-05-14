@@ -243,7 +243,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     String uid = currentUser.getUid();
 
-                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child("patient").child(uid);
 
                     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -292,7 +292,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // Google Sign In was successful, authenticate with Firebase
                 account = task.getResult(ApiException.class);
 
-                Query databaseReference =  FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("email").equalTo(account.getEmail().toString());
+                Query databaseReference =  FirebaseDatabase.getInstance().getReference().child("users").child("patient").orderByChild("email").equalTo(account.getEmail().toString());
                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -384,7 +384,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String uid = currentUser.getUid();
             DatabaseReference fotoIdRef;
 
-            fotoIdRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+            fotoIdRef = FirebaseDatabase.getInstance().getReference().child("users").child("patient").child(uid);
 
             fotoIdRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -527,7 +527,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void writeUser(final String namaUser, String noUser, String kotaUser, String emailUser, String isAdmin, boolean statusAdmin){
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String userId = currentUser.getUid();
-        createUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+        createUserRef = FirebaseDatabase.getInstance().getReference().child("users").child("patient").child(userId);
         User user = new User(userId, namaUser, noUser, kotaUser, emailUser, isAdmin, "", statusAdmin);
         createUserRef.setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

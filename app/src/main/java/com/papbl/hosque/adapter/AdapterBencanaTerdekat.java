@@ -20,19 +20,20 @@ import com.bumptech.glide.request.RequestOptions;
 import com.papbl.hosque.R;
 import com.papbl.hosque.activities.DetailBencanaActivity;
 import com.papbl.hosque.model.Bencana;
+import com.papbl.hosque.model.Hospital;
 
 import java.util.ArrayList;
 
 public class AdapterBencanaTerdekat extends RecyclerView.Adapter<AdapterBencanaTerdekat.ViewHolder> {
 
     private final Context context;
-    private final ArrayList<Bencana> list_bencana = new ArrayList<>();
+    private final ArrayList<Hospital> list_bencana = new ArrayList<>();
 
     public AdapterBencanaTerdekat(Context context) {
         this.context = context;
     }
 
-    public void setData(ArrayList<Bencana> items) {
+    public void setData(ArrayList<Hospital> items) {
         list_bencana.clear();
         list_bencana.addAll(items);
         notifyDataSetChanged();
@@ -76,13 +77,13 @@ public class AdapterBencanaTerdekat extends RecyclerView.Adapter<AdapterBencanaT
             tv_kategori = itemView.findViewById(R.id.tv_kategori);
         }
 
-        void bind(Bencana bencana){
-            tv_judulbencana.setText(bencana.getJudul());
-            tv_kategori.setText(bencana.getKategori());
+        void bind(Hospital bencana){
+            tv_judulbencana.setText(bencana.getNama());
+            tv_kategori.setText(bencana.getTipe());
             RequestOptions requestOptions = new RequestOptions();
             requestOptions = requestOptions.transforms(new CenterCrop(), new RoundedCorners(20));
             Glide.with(itemView.getContext())
-                    .load(bencana.getFotoBencana())
+                    .load(bencana.getUrl_photo())
                     .apply(requestOptions)
                     .into(iv_fotobencana);
         }

@@ -39,6 +39,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.papbl.hosque.model.Hospital;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private String kotaSekarang;
 
     private ShimmerFrameLayout mShimmerViewContainer;
-    private ShimmerFrameLayout mShimmerViewContainer2;
+//    private ShimmerFrameLayout mShimmerViewContainer2;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -71,14 +72,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         mShimmerViewContainer.startShimmerAnimation();
-        mShimmerViewContainer2.startShimmerAnimation();
+//        mShimmerViewContainer2.startShimmerAnimation();
         super.onStart();
     }
 
     @Override
     public void onResume() {
         mShimmerViewContainer.startShimmerAnimation();
-        mShimmerViewContainer2.startShimmerAnimation();
+//        mShimmerViewContainer2.startShimmerAnimation();
         super.onResume();
     }
 
@@ -88,7 +89,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         mShimmerViewContainer = view.findViewById(R.id.shimmer_view_container);
-        mShimmerViewContainer2 = view.findViewById(R.id.shimmer_view_container2);
+//        mShimmerViewContainer2 = view.findViewById(R.id.shimmer_view_container2);
 
         btn_kebakaran = view.findViewById(R.id.btn_kebakaran);
         btn_longsor = view.findViewById(R.id.btn_longsor);
@@ -107,7 +108,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         iv_close.setOnClickListener(this);
 
         rv_bencanaterdekat = view.findViewById(R.id.rv_bencanaterdekat);
-        rv_caripahalayuk = view.findViewById(R.id.rv_caripahalayuk);
+//        rv_caripahalayuk = view.findViewById(R.id.rv_caripahalayuk);
 
         tv_lokasi = view.findViewById(R.id.tv_lokasi);
         tv_searchbencana = view.findViewById(R.id.tv_searchbencana);
@@ -130,25 +131,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         ll_gunungmeletus.setOnClickListener(this);
         ll_putingbeliung.setOnClickListener(this);
 
-        getCurrentLocation();
-        getBencana();
-
+//        getCurrentLocation();
+        getBencanaTerdekat();
         return view;
     }
 
     private void getBencanaTerdekat() {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference("Bencana");
+        DatabaseReference databaseReference = firebaseDatabase.getReference("hospital");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ArrayList<Bencana> bencanaterdekat = new ArrayList<>();
+                ArrayList<Hospital> bencanaterdekat = new ArrayList<>();
                 for (DataSnapshot dt : dataSnapshot.getChildren()) {
-
-                    if (dt.child("kota").getValue().toString().equalsIgnoreCase(kotaSekarang.split(" ")[1])) {
-                        Bencana bencana = dt.getValue(Bencana.class);
-                        bencanaterdekat.add(bencana);
-                    }
+                    Hospital bencana = dt.getValue(Hospital.class);
+                    bencanaterdekat.add(bencana);
 
                 }
                 mShimmerViewContainer.stopShimmerAnimation();
@@ -167,33 +164,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         });
     }
 
-    private void getBencana() {
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference("Bencana");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ArrayList<Bencana> list_bencana = new ArrayList<>();
-                for (DataSnapshot dt : dataSnapshot.getChildren()) {
-                    Bencana bencana = dt.getValue(Bencana.class);
-                    list_bencana.add(bencana);
-                }
-
-                mShimmerViewContainer2.stopShimmerAnimation();
-                mShimmerViewContainer2.setVisibility(View.GONE);
-                rv_caripahalayuk.setVisibility(View.VISIBLE);
-                AdapterBencana adapterBencana = new AdapterBencana(getContext());
-                adapterBencana.setData(list_bencana);
-                rv_caripahalayuk.setAdapter(adapterBencana);
-                rv_caripahalayuk.setLayoutManager(new LinearLayoutManager(getContext()));
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
 
     @Override
     public void onClick(View v) {
@@ -265,7 +235,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         Geocoder geocoder;
         List<Address> addresses;
         String city = null, state = null, knownName = null;
-        if(getContext() != null) {
+        if (getContext() != null) {
             geocoder = new Geocoder(getContext(), Locale.getDefault());
             try {
                 addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
@@ -294,8 +264,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 if (location != null) {
                     try {
                         tv_lokasi.setText(getCityAndProvince(location));
-                        if (kotaSekarang!=null) {
-                            Log.d("cek masukssss",kotaSekarang);
+                        if (kotaSekarang != null) {
+                            Log.d("cek masukssss", kotaSekarang);
                             getBencanaTerdekat();
                         }
                     } catch (IOException e) {

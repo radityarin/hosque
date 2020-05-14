@@ -58,7 +58,7 @@ public class BuktiDataDiriActivity extends AppCompatActivity implements View.OnC
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         uid = firebaseUser.getUid();
 
-        accountReference = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+        accountReference = FirebaseDatabase.getInstance().getReference().child("users").child("patient").child(uid);
     }
 
     @Override
@@ -143,15 +143,6 @@ public class BuktiDataDiriActivity extends AppCompatActivity implements View.OnC
             dataFoto = baos.toByteArray();
 
             btnUploadFoto.setEnabled(true);
-
-            //            resultUri = getImageUri(this, imageBitmap);
         }
     }
-
-//    public Uri getImageUri(Context inContext, Bitmap inImage) {
-//        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-//        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-//        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
-//        return Uri.parse(path);
-//    }
 }
