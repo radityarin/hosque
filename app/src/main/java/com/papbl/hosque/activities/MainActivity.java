@@ -60,10 +60,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        bottomSheetBehaviorLogin = BottomSheetBehavior.from(binding.bottomSheetLogin.root);
-        bottomSheetBehaviorRegis = BottomSheetBehavior.from(binding.bottomSheetRegis.root);
-        bottomSheetBehaviorLupaPassword = BottomSheetBehavior.from(binding.bottomSheetLupaPassword.root);
-        bottomSheetBehaviorRegisCompleteData = BottomSheetBehavior.from(binding.bottomSheetRegisdata.root);
+        bottomSheetBehaviorLogin = BottomSheetBehavior.from(binding.bottomSheetLogin.bottomSheetLogin);
+        bottomSheetBehaviorRegis = BottomSheetBehavior.from(binding.bottomSheetRegis.bottomSheetRegis);
+        bottomSheetBehaviorLupaPassword = BottomSheetBehavior.from(binding.bottomSheetLupaPassword.bottomSheetLupaPassword);
+        bottomSheetBehaviorRegisCompleteData = BottomSheetBehavior.from(binding.bottomSheetRegisdata.bottomSheetRegisdata);
         binding.btnGoLogin.setOnClickListener(this);
         binding.btnGoRegis.setOnClickListener(this);
 
